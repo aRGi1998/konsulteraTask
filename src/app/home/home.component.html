@@ -1,0 +1,71 @@
+<div id="wrapper">
+    <div class="overlay"></div>
+     
+         <!-- Sidebar -->
+     <nav class="navbar navbar-inverse fixed-top" id="sidebar-wrapper" role="navigation">
+      <ul class="nav sidebar-nav">
+        <li><a href="#home" routerLink="/home">Home</a></li>
+        <li><a href="#about" routerLink="/trash">Trash</a></li>
+      </ul>
+     </nav>
+         <!-- /#sidebar-wrapper -->
+ 
+         <!-- Page Content -->
+         <div id="page-content-wrapper">
+             <button type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
+                 <span class="hamb-top"></span>
+                 <span class="hamb-middle"></span>
+                 <span class="hamb-bottom"></span>
+             </button>
+             <div class="container">
+                <div class=" row">
+                    <form class="search-form">
+                      <div class="input-group">
+                        <input type="text" placeholder="Search" class="form-control search-input"  [(ngModel)]="searchTerm" [ngModelOptions]="{ standalone: true }">
+                        <div class="input-group-append">
+                          <button type="submit" class="btn btn-primary search-button">
+                            <i class="fa fa-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                    <div class="col">
+                      <div class="form-group d-flex align-items-center mb-0">
+                        <label class="mr-2">Price Range:</label>
+                        <select class="form-control" [(ngModel)]="selectedPriceRange" (change)="filterProductsByPrice()">
+                          <option value="">All Prices</option>
+                          <option value="0-100">$0 - $10</option>
+                          <option value="100-500">$10 - $50</option>
+                          <option value="500-1000">$50 - $100</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  
+                 <div class="row">
+                    <div class="text-center container py-5">
+                        <h4 class="mt-4 mb-5"><strong>Best Products!</strong></h4>
+                          <div class="row">
+                              <div class="col-md-4" *ngFor="let product of products">
+                                <div class="card h-100 mb-4 shadow-sm">
+                                  <img class="card-img-top h-100" [src]="product.imagePath" alt="Product image" (click)="viewDetail(product,product.id)">
+                                  <div class="card-body">
+                                    <i class="fa-solid fa-heart d-flex justify-content-start" [ngClass]="{'active': product.isInWishlist}" (click)="addToWishlist(product)"></i>
+                                    <h5 class="card-title">{{ product.name }}</h5>
+                                    <p class="card-text">{{ product.description }}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                      <small class="text-muted">$ {{ product.price }}</small>
+                                      <i  class='fa fa-trash' [ngClass]="{'active': product.isInWishlist}" (click)="addToRemove(product)"></i>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+                      </div>
+                 </div>
+             </div>
+         </div>
+         <!-- /#page-content-wrapper -->
+ 
+     </div>
+     <!-- /#wrapper -->
